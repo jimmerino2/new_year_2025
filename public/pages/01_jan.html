@@ -1,0 +1,173 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../style.css" />
+    <script src="../core/PageHandler.js"></script>
+    <script src="../core/VideoHandler.js"></script>
+  </head>
+
+  <body>
+    <video autoplay muted loop class="bg-video">
+      <source
+        src="../assets/01jan/bg_desktop.mp4"
+        type="video/mp4"
+        media="(min-width: 1024px)"
+      />
+      <source src="../assets/01jan/bg_mobile.mp4" type="video/mp4" />
+      Your browser does not support HTML5 video.
+    </video>
+
+    <div class="container-center">
+      <!-- Title -->
+      <div id="container-title" class="container-title">
+        <div class="text text-title">January</div>
+        <div class="text text-subtitle">
+          New Year Celebrations to start off 🎆🎉🎊
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="container-content">
+        <div
+          id="container-content-title"
+          class="text text-title container-content-title"
+        >
+          January
+        </div>
+        <table class="table-media">
+          <tr>
+            <!-- Leaving Venue -->
+            <td class="cell-media">
+              <div
+                id="container-leaving"
+                class="container-media container-media-horizontal"
+              >
+                <div class="text-subtitle">01/01 Leaving KLCC</div>
+                <video
+                  id="video-leaving"
+                  class="media media-horizontal"
+                  playsinline
+                >
+                  <source src="../assets/01jan/vid01.mp4" type="video/mp4" />
+                </video>
+                <button id="btn-leaving" class="btn-lockscreen">Play</button>
+              </div>
+            </td>
+
+            <!-- Countdown -->
+            <td class="cell-media">
+              <div
+                id="container-countdown"
+                class="container-media container-media-vertical"
+              >
+                <div class="text-subtitle">01/01 KLCC Countdown</div>
+                <video
+                  id="video-countdown"
+                  class="media media-vertical"
+                  playsinline
+                >
+                  <source
+                    src="../assets/01jan/countdown.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <button id="btn-countdown" class="btn-lockscreen">
+                  Play
+                </button>
+              </div>
+            </td>
+
+            <!-- Mirror Pic -->
+            <td class="cell-media">
+              <div
+                id="container-mirror"
+                class="container-media container-media-vertical"
+              >
+                <div class="text-subtitle">14/01 Mirror Selfies</div>
+                <img
+                  class="media media-vertical"
+                  src="../assets/01jan/mirror.gif"
+                />
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Navigation -->
+      <div class="container-navigation">
+        <button class="btn-nav btn-back" onclick="updatePage('back')">
+          <span class="arrow-icon">‹</span>
+        </button>
+
+        <button class="btn-nav btn-next" onclick="updatePage('next')">
+          <span class="arrow-icon">›</span>
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const containerTitle = document.getElementById("container-title");
+    const containers = [
+      document.getElementById("container-content-title"),
+      document.getElementById("container-countdown"),
+      document.getElementById("container-leaving"),
+      document.getElementById("container-mirror"),
+    ];
+
+    setTimeout(() => {
+      containerTitle.style.transition = "opacity 0.8s ease";
+      containerTitle.style.opacity = "0";
+      containers.forEach((container) => {
+        if (!container) return;
+        container.style.opacity = "0";
+        container.style.display = "flex";
+      });
+
+      setTimeout(() => {
+        containers.forEach((container) => {
+          if (!container) return;
+          container.style.transition = "opacity 1.2s ease";
+          container.style.opacity = "1";
+        });
+      }, 50);
+      setTimeout(() => {
+        containerTitle.style.display = "none";
+      }, 800);
+    }, 1500);
+
+    // Video Handler
+    {
+      const videoPlayers = [
+        {
+          container: containers[0],
+          btn: document.getElementById("btn-countdown"),
+          video: document.getElementById("video-countdown"),
+          volume: 0.5,
+          fadeTime: 1000,
+        },
+        {
+          container: containers[1],
+          btn: document.getElementById("btn-leaving"),
+          video: document.getElementById("video-leaving"),
+          volume: 0.5,
+          fadeTime: 1000,
+        },
+      ];
+      videoPlayers.forEach(({ container, btn, video, volume, fadeTime }) => {
+        if (!btn || !video) return;
+
+        btn.addEventListener("click", () => {
+          btn.disabled = true;
+          video.muted = false;
+          video.play();
+          fadeInAudio(video, volume, fadeTime);
+        });
+      });
+    }
+  });
+</script>

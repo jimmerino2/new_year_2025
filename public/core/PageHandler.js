@@ -13,11 +13,8 @@ function setCurrentPage(pageNo = undefined) {
 
 function updatePage(type) {
   let currentPage = Number(localStorage.getItem("page")) || 0;
-  if (type === "back") {
-    currentPage = Math.max(0, currentPage - 1);
-  } else if (type === "next") {
-    currentPage = currentPage + 1;
-  }
+  currentPage = type === "back" ? currentPage - 1 : currentPage + 1;
+  currentPage = Math.min(Math.max(0, currentPage), 7);
   localStorage.setItem("page", currentPage);
   goToCurrentPage();
 }

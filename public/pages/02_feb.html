@@ -1,0 +1,179 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../style.css" />
+    <script src="../core/PageHandler.js"></script>
+    <script src="../core/VideoHandler.js"></script>
+  </head>
+
+  <body>
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      class="bg-media mobile-only"
+    >
+      <source src="../assets/02feb/bg_mobile.mp4" type="video/mp4" />
+    </video>
+
+    <img
+      src="../assets/02feb/bg_desktop.jpg"
+      alt="Background"
+      class="bg-media desktop-only"
+    />
+
+    <div class="container-center">
+      <!-- Title -->
+      <div id="container-title" class="container-title">
+        <div class="text text-title">February</div>
+        <div class="text text-subtitle">Cat Cafes and Valentines</div>
+      </div>
+
+      <!-- Content -->
+      <div class="container-content">
+        <div
+          id="container-content-title"
+          class="text text-title container-content-title"
+        >
+          February
+        </div>
+        <table class="table-media">
+          <tr>
+            <!-- Item 01 -->
+            <td class="cell-media">
+              <div
+                id="container-item-1"
+                class="container-media container-media-vertical"
+              >
+                <div class="text-subtitle">14/02 Valentines Food</div>
+                <img
+                  class="media media-vertical"
+                  src="../assets/02feb/valentines_food.gif"
+                />
+              </div>
+            </td>
+
+            <!-- Item 02 -->
+            <td class="cell-media">
+              <div
+                id="container-item-2"
+                class="container-media container-media-vertical"
+              >
+                <div class="text-subtitle">14/02 Valentines Gifts</div>
+                <img
+                  class="media media-vertical"
+                  src="../assets/02feb/valentines_gift.gif"
+                />
+              </div>
+            </td>
+
+            <!-- Item 03 -->
+            <td class="cell-media">
+              <div
+                id="container-item-3"
+                class="container-media container-media-vertical"
+              >
+                <div class="text-subtitle">23/02 Meow Kapihan</div>
+                <img
+                  class="media media-vertical"
+                  src="../assets/02feb/cat_cafe.gif"
+                />
+              </div>
+            </td>
+
+            <!-- Item 04 -->
+            <td class="cell-media">
+              <div
+                id="container-item-4"
+                class="container-media container-media-vertical"
+              >
+                <div class="text-subtitle">23/02 Meow Capihan</div>
+                <video
+                  id="video-item-4"
+                  class="media media-vertical"
+                  playsinline
+                  preload="metadata"
+                >
+                  <source src="../assets/02feb/cat_cafe.mp4" type="video/mp4" />
+                </video>
+                <button id="btn-item-4" class="btn-lockscreen">Play</button>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Navigation -->
+      <div class="container-navigation">
+        <button class="btn-nav btn-back" onclick="updatePage('back')">
+          <span class="arrow-icon">‹</span>
+        </button>
+
+        <button class="btn-nav btn-next" onclick="updatePage('next')">
+          <span class="arrow-icon">›</span>
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    setCurrentPage();
+    const containerTitle = document.getElementById("container-title");
+    const containers = [
+      document.getElementById("container-content-title"),
+      document.getElementById("container-item-1"),
+      document.getElementById("container-item-2"),
+      document.getElementById("container-item-3"),
+      document.getElementById("container-item-4"),
+    ];
+
+    setTimeout(() => {
+      containerTitle.style.transition = "opacity 0.8s ease";
+      containerTitle.style.opacity = "0";
+      containers.forEach((container) => {
+        if (!container) return;
+        container.style.opacity = "0";
+        container.style.display = "flex";
+      });
+
+      setTimeout(() => {
+        containers.forEach((container) => {
+          if (!container) return;
+          container.style.transition = "opacity 1.2s ease";
+          container.style.opacity = "1";
+        });
+      }, 50);
+      setTimeout(() => {
+        containerTitle.style.display = "none";
+      }, 800);
+    }, 1500);
+
+    // Video Handler
+    {
+      const videoPlayers = [
+        {
+          container: containers[0],
+          btn: document.getElementById("btn-item-4"),
+          video: document.getElementById("video-item-4"),
+          volume: 0.5,
+          fadeTime: 1000,
+        },
+      ];
+      videoPlayers.forEach(({ container, btn, video, volume, fadeTime }) => {
+        if (!btn || !video) return;
+
+        btn.addEventListener("click", () => {
+          btn.style.display = "none";
+          video.muted = false;
+          video.play();
+          fadeInAudio(video, volume, fadeTime);
+        });
+      });
+    }
+  });
+</script>

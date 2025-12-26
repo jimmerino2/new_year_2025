@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../style.css" />
+    <script src="../core/PageHandler.js"></script>
+    <script src="../core/VideoHandler.js"></script>
+  </head>
+  <body>
+    <video autoplay muted loop playsinline preload="metadata" class="bg-media">
+      <source
+        src="../assets/03apr/cat_cafe02.mp4"
+        type="video/mp4"
+        media="(min-width: 1024px)"
+      />
+      <source src="../assets/02feb/cat_cafe.mp4" type="video/mp4" />
+      Your browser does not support HTML5 video.
+    </video>
+
+    <div class="container-center">
+      <div id="container-title" class="container-title">
+        <div class="text text-title">Happy 2026</div>
+        <div class="text text-subtitle">Love you baobeiii <3</div>
+      </div>
+
+      <div class="container-navigation">
+        <button class="btn-nav btn-back" onclick="updatePage('back')">
+          <span class="arrow-icon">‹</span>
+        </button>
+
+        <button class="btn-nav btn-next" onclick="updatePage('next')">
+          <span class="arrow-icon">›</span>
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    setCurrentPage();
+  });
+</script>
